@@ -1,0 +1,31 @@
+footer {
+  margin-top: 300px;
+}
+
+footer h4 {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+footer .my-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer .my-ul.ul-hoverable li {
+  width: 150px;
+  cursor: pointer;
+  border-bottom: 1px solid #1d1919;
+}
+
+footer .my-ul.ul-hoverable li:hover {
+  background-color: #ccc;
+}
+
+@media (max-width: 576px) {
+  footer .cprgh {
+    font-size: .8rem;
+  }
+}
+/*# sourceMappingURL=footer.css.map */

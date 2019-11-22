@@ -1,0 +1,111 @@
+section.package-trip {
+  margin-top: 100px;
+  position: relative;
+}
+
+section.package-trip .ln {
+  position: absolute;
+  margin-top: -30px;
+  width: 100%;
+  height: 250px;
+  background: #5eb7b7;
+}
+
+@media (max-width: 576px) {
+  .trips {
+    margin-left: 10%;
+  }
+  .cardku {
+    margin-top: 30px;
+  }
+}
+
+section.services {
+  margin-top: 150px;
+}
+
+section.services h1 {
+  font-weight: 700;
+}
+
+section.services .bungkus {
+  margin-top: 15px;
+  width: 100%;
+  height: 320px;
+  background: #5eb7b7;
+  padding: 20px 0px;
+}
+
+section.services h3 {
+  font-weight: 700;
+}
+
+@media (max-width: 576px) {
+  section.services img {
+    width: 30%;
+  }
+  section.services .bungkus {
+    margin-top: 15px;
+    width: 100%;
+    height: 100%;
+    background: #5eb7b7;
+    padding: 20px 0px;
+  }
+}
+
+section.partners {
+  margin-top: 150px;
+}
+
+section.partners h1 {
+  font-weight: 700;
+}
+
+@media (max-width: 576px) {
+  section.partners h1 {
+    text-align: center;
+  }
+  section.partners img {
+    margin-top: 40px;
+  }
+}
+
+section.testimonial {
+  margin-top: 200px;
+  position: relative;
+}
+
+section.testimonial h1 {
+  font-weight: 700;
+}
+
+section.testimonial .ln {
+  width: 100%;
+  height: 300px;
+  background: #5eb7b7;
+  position: absolute;
+  bottom: 0;
+}
+
+section.testimonial .card {
+  -webkit-box-shadow: 10px 10px 13px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 13px -5px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 576px) {
+  section.testimonial h1 {
+    text-align: center;
+  }
+  section.testimonial .card {
+    margin-top: 40px;
+    margin-left: 17%;
+  }
+  section.testimonial .ln {
+    width: 100%;
+    height: 80%;
+    background: #5eb7b7;
+    position: absolute;
+    bottom: 0;
+  }
+}
+/*# sourceMappingURL=index.css.map */

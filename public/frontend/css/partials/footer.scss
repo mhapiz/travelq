@@ -1,0 +1,34 @@
+footer {
+  margin-top: 300px;
+
+  h4 {
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .my-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .my-ul.ul-hoverable {
+    li {
+      width: 150px;
+      cursor: pointer;
+      border-bottom: 1px solid #1d1919;
+
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+  }
+
+
+  @media (max-width: 576px) {
+
+    .cprgh {
+      font-size: .8rem;
+    }
+  }
+}
