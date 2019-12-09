@@ -27,47 +27,34 @@
               <div class="col-sm-12 col-md-8">
                   <div class="card">
                       <div class="card-body">
-                          <h2 class="card-title font-weight-bold">Maldives</h2>
-                          <h5 class="card-subtitle text-muted mb-3">Sri Lanka, Indian Ocean</h5>
+                          <h2 class="card-title font-weight-bold"> {{$item->title}} </h2>
+                          <h5 class="card-subtitle text-muted mb-3"> {{$item->location}} </h5>
 
 
+													@if ($item->galleries->count())
+															
                           <div class="galery">
-                              <div class="xzoom-container">
-                                  <img src="frontend/img/maldives1.jpg" alt="maldives1" class="xzoom"
-                                      id="xzoom-default" xoriginal="frontend/img/maldives1.jpg" />
+														<div class="xzoom-container">
+															<img src=" {{ Storage::url($item->galleries->first()->image) }} " alt="maldives1" class="xzoom"
+                                      id="xzoom-default" xoriginal=" {{ Storage::url($item->galleries->first()->image) }} " />
                               </div>
 
                               <div class="xzoom-thumbs">
-                                  <a href="frontend/img/maldives2.jpg">
-                                      <img src="frontend/img/maldives2.jpg" class="xzoom-gallery" width="210"
-                                          xpreview="frontend/img/maldives2.jpg">
-                                  </a>
+                                  @foreach ($item->galleries as $gallery)
+																	<a href=" {{ Storage::url($gallery->image)}} ">
+																		<img src=" {{ Storage::url($gallery->image)}} " class="xzoom-gallery" width="210"
+																				xpreview=" {{ Storage::url($gallery->image)}} ">
+																	</a>
+																	@endforeach
 
-                                  <a href="frontend/img/maldives3.png">
-                                      <img src="frontend/img/maldives3.png" class="xzoom-gallery" width="210"
-                                          xpreview="frontend/img/maldives3.png">
-                                  </a>
-
-                                  <a href="frontend/img/maldives4.png">
-                                      <img src="frontend/img/maldives4.png" class="xzoom-gallery" width="210"
-                                          xpreview="frontend/img/maldives4.png">
-                                  </a>
+                                  
                               </div>
-                          </div>
+													</div>
+													@endif
+													
 
-                          <h5 class="card-subtitle font-weight-bold mt-4"> Explore Maldives</h5>
-                          <p class="description mt-3">Welcome to the Maldives, where sands are white as the smiles
-                              of the locals,
-                              where fish
-                              swim happily in
-                              the warm waters of the Indian Ocean, where the weather is a dream, and the deep rays
-                              of the sun wait to
-                              engulf you in their arms.
-                              Republic of the Maldives is a sovereign archipelagic nation positioned in the Indian
-                              Ocean. Notably, the
-                              South Asian Island nation has no counterpart in the entire world in terms of its
-                              unique geography and
-                              topography.</p>
+                          <h5 class="card-subtitle font-weight-bold mt-4"> {{$item->title}} </h5>
+                          <p class="description mt-3"> {{$item->about}} .</p>
 
                           <div class="include">
                               <h5 class="card-subtitle font-weight-bold mt-4 mb-4"> Services Inluded</h5>
@@ -129,22 +116,24 @@
 
                               <tr>
                                   <th width="50%">Date of Departure</th>
-                                  <td width="50%" class="text-right"> 22 December 2019</td>
+                                  <td width="50%" class="text-right"> 
+																		{{ \Carbon\Carbon::create($item->departure)->format('l, j M Y') }}
+																	</td>
                               </tr>
 
                               <tr>
                                   <th width="50%">Duration</th>
-                                  <td width="50%" class="text-right"> 4 Days 4 Nights</td>
+                                  <td width="50%" class="text-right"> {{$item->duration}} </td>
                               </tr>
 
                               <tr>
                                   <th width="50%">Type of Trip</th>
-                                  <td width="50%" class="text-right"> Premium</td>
+                                  <td width="50%" class="text-right"> {{$item->typeOfTrip}}</td>
                               </tr>
 
                               <tr>
                                   <th width="50%">Price</th>
-                                  <td width="50%" class="text-right">$12k/person</td>
+                                  <td width="50%" class="text-right">Rp.{{$item->price}}/Person</td>
                               </tr>
 
 
@@ -154,8 +143,19 @@
                       </div>
                   </div>
                   <div class="book-now text-center">
-                      <a href="checkout.html" class="btn btn-book ">BOOK ME IN</a>
-                  </div>
+										@auth
+
+										<form action=" {{route('Checkout_process', $item->id)}} " method="POST" >
+											@csrf
+											<button class="btn btn-book pb-4" type="submit">BOOK ME IN</button>
+										</form>
+										
+										@endauth
+										@guest
+										<a href="{{route('login')}}" class="btn btn-book ">Login or Register Dlu laaa</a>
+												
+										@endguest
+									</div>
               </div>
   </section>
 </main>

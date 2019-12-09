@@ -14,7 +14,7 @@
 
   <!-- Nav Item - Dashboard -->
   <li class="nav-item active">
-    <a class="nav-link" href="index.html">
+    <a class="nav-link" href=" {{ route('Dashboard') }} ">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Dashboard</span></a>
   </li>
@@ -24,21 +24,21 @@
 
   <!-- TRAVEL PACKAGE -->
   <li class="nav-item">
-    <a class="nav-link" href="index.html">
+    <a class="nav-link" href=" {{ route('travel-package.index') }} ">
       <i class="fas fa-plane"></i>
       <span>Travel Package</span></a>
   </li>
 
   <!-- TRAVEL GALERY -->
   <li class="nav-item">
-    <a class="nav-link" href="index.html">
+    <a class="nav-link" href=" {{ route('gallery.index') }} ">
       <i class="fas fa-images"></i>
       <span>Travel Galery</span></a>
   </li>
 
   <!-- TRAVEL TRANSACTION -->
   <li class="nav-item">
-    <a class="nav-link" href="index.html">
+    <a class="nav-link" href="{{ route('transaction.index') }}">
       <i class="fas fa-money-bill-wave"></i>
       <span>Transaction</span></a>
   </li>

@@ -24,19 +24,43 @@
         </div>
         <a class="nav-item nav-link" href=" {{'/package'}} ">Package</a>
       </div>
-      <!-- MOBILE BTN FOR LOGIN -->
+
+
+      @guest
+          <!-- MOBILE BTN FOR LOGIN -->
       <form class="form-inline my-2 my-lg-0 d-block d-md-none">
-        <a href="#" class="btn btn-login">
+        <button href="#" class="btn btn-login" type="button" onclick="event.preventDefault(); location.href=' {{url('login')}}';">
           LOGIN
-        </a>
+        </button>
       </form>
 
       <!-- DESKTOP BTN FOR LOGIN -->
       <form class="form-inline my-2 my-lg-0 d-none d-md-block">
-        <a href="#" class="btn btn-login btn-navbar-right my-2 my-sm-0 px-4 pt-4">
+        <button href="#" class="btn btn-login btn-navbar-right my-2 my-sm-0 px-4 pt-2" type="button" onclick="event.preventDefault(); location.href=' {{url('login')}}';">
           LOGIN
-        </a>
+        </button>
       </form>
+      @endguest
+
+      @auth
+          <!-- MOBILE BTN FOR LOGIN -->
+      <form class="form-inline my-2 my-lg-0 d-block d-md-none" action="{{url('logout')}}" method="POST" >
+        <button href="#" class="btn btn-login " type="submit">
+          @csrf
+          LOGOUT
+        </button>
+      </form>
+
+      <!-- DESKTOP BTN FOR LOGIN -->
+      <form class="form-inline my-2 my-lg-0 d-none d-md-block" action="{{url('logout')}}" method="POST" >
+        <button href="#" class="btn btn-login btn-navbar-right my-2 my-sm-0 px-4 pt-2" type="submit">
+          @csrf
+          LOGOUT
+        </button>
+      </form>
+      @endauth
+
+
     </div>
   </nav>
 </div>

@@ -29,41 +29,23 @@
               <h4>The Best Beaches in Asia</h4>
             </div>
   
+            @foreach ($items as $item)
             <div class="col-md-3">
               <div class="cardku">
                 <div class="pala-card">
-                  <h4>BALI</h4>
-                  <h5>Indonesia</h5>
+                  <h4>{{$item->title}}</h4>
+                  <h5>{{$item->location}}</h5>
                 </div>
-                <img src="frontend/img/baliport.jpg" alt="Bali" />
-                <a href="#" class="btn card-btn">JUMP IN</a>
+                <img src="{{ $item->galleries->count() ? Storage::url($item->galleries->first()->image) : '' }}" alt="Bali" />
+                <a href=" {{ route('Detail', $item->slug)}} " class="btn card-btn">JUMP IN</a>
               </div>
             </div>
+            @endforeach
   
-            <div class="col-md-3">
-              <div class="cardku">
-                <div class="pala-card">
-                  <h4>MALDIVES</h4>
-                  <h5>Sri Lanka</h5>
-                </div>
-                <img src="frontend/img/maldivesport.jpg" alt="Maldives" />
-                <a href="detail.html" class="btn card-btn">JUMP IN</a>
-              </div>
-            </div>
-  
-            <div class="col-md-3">
-              <div class="cardku">
-                <div class="pala-card">
-                  <h4>BALI</h4>
-                  <h5>Indonesia</h5>
-                </div>
-                <img src="frontend/img/baliport.jpg" alt="Bali" />
-                <a href="#" class="btn card-btn">JUMP IN</a>
-              </div>
-            </div>
+            
           </div>
   
-          <div class="row beaches2">
+          {{-- <div class="row beaches2">
             <div class="art"></div>
   
             <div class="col-md-3">
@@ -103,7 +85,7 @@
                 <a href="#" class="btn card-btn">JUMP IN</a>
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
       </section>
     </main>

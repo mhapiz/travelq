@@ -1,5 +1,7 @@
 @extends('layouts.second')
 
+
+
 @section('title', 'Checkout')
     
 
@@ -26,8 +28,19 @@
             <div class="card mb-5">
               <div class="container">
                 <div class="card-body">
+
+                  @if ($errors->any())
+                      <div class="alert alert-danger">
+                        <ul>
+                          @foreach ($errors->all() as $error)
+                              <li> {{$error}} </li>
+                          @endforeach
+                        </ul>
+                      </div>
+                  @endif
+
                   <h2 class="card-title font-weight-bold">Who's Going?</h2>
-                  <h5 class="card-subtitle text-muted mb-3">Trip to Maldives, Sri Lanka</h5>
+                  <h5 class="card-subtitle text-muted mb-3">Trip to  {{$item->travel_package->title}} </h5>
   
                   <table class="table table-hover table-responsive-sm text-center">
                     <thead>
@@ -42,43 +55,35 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td> <img src="frontend/img/people/girl1.png" class="rounded-circle" width="30">
-                        </td>
-                        <td>
+
+                      @forelse ($item->details as $detail)
+                        <tr>
+                          <th scope="row">1</th>
+                          <td> <img src=" https://ui-avatars.com/?name={{$detail->username}}" class="rounded-circle" width="30">
+                          </td>
+                          <td>
+    
+                            {{$detail->username}}
+                          </td>
+                          <td>{{$detail->nationality}}</td>
+                          <td>{{$detail->is_visa ? '30 Days' : 'N/a'}}</td>
+                          <td>{{\Carbon\Carbon::createFromDate($detail->doe_passport) > \Carbon\Carbon::now() ? 'Active' : 'Inactive' }}</td>
+                          <td>
+                            <a href=" {{route('Checkout_remove', $detail->id)}} ">
+                              X
+                            </a>
+    
+                          </td>
+                        </tr>    
+                      @empty
+                          <tr>
+                            <td>GADA OY</td>
+                          </tr>
+                      @endforelse
+
+                      
   
-                          Clara Anastasia
-                        </td>
-                        <td>Singaporean</td>
-                        <td>30 Days</td>
-                        <td>Active</td>
-                        <td>
-                          <a href="#">
-                            X
-                          </a>
-  
-                        </td>
-                      </tr>
-  
-                      <tr>
-                        <th scope="row">2</th>
-                        <td> <img src="frontend/img/people/girl1.png" class="rounded-circle" width="30">
-                        </td>
-                        <td>
-  
-                          Clara Anastasia
-                        </td>
-                        <td>Singaporean</td>
-                        <td>30 Days</td>
-                        <td>Active</td>
-                        <td>
-                          <a href="#">
-                            X
-                          </a>
-  
-                        </td>
-                      </tr>
+                      
   
                     </tbody>
                   </table>
@@ -90,20 +95,28 @@
                   <div class="add-member mt-3">
                     <h4 class="font-weight-bold">Add Member</h4>
   
-                    <form>
+                    <form method="POST" action="{{route('Checkout_create', $item->id)}}" >
+                      @csrf 
                       <div class="form-row align-items-center">
                         <div class="col-sm-3 my-1">
                           <label class="sr-only" for="username">username</label>
-                          <input type="text" class="form-control" name="inputUsername" id="inputUsername"
+                          <input type="text" class="form-control" name="username" id="username"
                             placeholder="Username">
                         </div>
+
+                        <div class="col-sm-3 my-1">
+                            <label class="sr-only" for="nationality">nationality</label>
+                            <input type="text" class="form-control" name="nationality" id="nationality"
+                              placeholder="nationality">
+                          </div>
+
                         <div class="col-sm-2 my-1">
                           <label class="sr-only" for="visa">Visa</label>
                           <div class="input-group">
-                            <select name="inputVisa" id="inputVisa" class="custom-select mr-sm-2">
-                              <option value="visa" selected>Visa</option>
-                              <option value="30 days">30 Days</option>
-                              <option value="N/A">N/A</option>
+                            <select name="is_visa" id="is_visa" class="custom-select mr-sm-2">
+                              <option value="" selected>Visa</option>
+                              <option value="1">30 Days</option>
+                              <option value="0">N/A</option>
                             </select>
                           </div>
                         </div>
@@ -111,8 +124,8 @@
                         <div class="col-sm-4 my-1">
                           <label class="sr-only" for="passport">DOE Passport</label>
                           <div class="input-group">
-                            <input type="text" id="doepassport" placeholder="DOE Passport" name="passport"
-                              class="form-control datepicker">
+                            <input type="text"  id="doe_passport" placeholder="DOE Passport" name="doe_passport"
+                              class="form-control datepicker"/>
                           </div>
                         </div>
   
@@ -147,27 +160,27 @@
   
                     <tr>
                       <th width="50%">Members</th>
-                      <td width="50%" class="text-right">2 Members</td>
+                      <td width="50%" class="text-right">{{$item->details->count()}}</td>
                     </tr>
   
                     <tr>
                       <th width="50%">Additional VISA</th>
-                      <td width="50%" class="text-right"> $100/person</td>
+                      <td width="50%" class="text-right">Rp. {{$item->additional_visa}}/person</td>
                     </tr>
   
                     <tr>
                       <th width="50%">Trip Price</th>
-                      <td width="50%" class="text-right"> $12k/Person</td>
+                      <td width="50%" class="text-right">Rp. {{$item->travel_package->price}}/Person</td>
                     </tr>
   
                     <tr>
                       <th width="50%">Total Price</th>
-                      <td width="50%" class="text-right">$26.000,00</td>
+                      <td width="50%" class="text-right">Rp. {{$item->transaction_total}} </td>
                     </tr>
   
                     <tr>
                       <th width="70%" class="">Total Pay (unix code)</th>
-                      <td width="50%" class="text-right">$25.998,00</td>
+                      <td width="50%" class="text-right">Rp. {{$item->transaction_total}}, {{mt_rand(0,99 )}} </td>
                     </tr>
                   </table>
                 </div>
@@ -206,11 +219,11 @@
               </div>
             </div>
             <div class="book-now text-center">
-              <a href="{{'/success'}}" class="btn btn-book ">Payment Confirmation</a>
+              <a href="{{route('Checkout_success', $item->id)}}" class="btn btn-book ">Payment Confirmation</a>
             </div>
   
             <div class=" text-center">
-              <a href="index.html" class="btn btn-cancel">CANCEL booking</a>
+              <a href="{{route('Detail', $item->travel_package->slug)}}" class="btn btn-cancel">CANCEL booking</a>
             </div>
   
           </div>
@@ -223,10 +236,12 @@
     
 @endpush
 
+
 @push('append-script')
-<script src=" {{url(' frontend/libraries/gijgo/js/gijgo.min.js')}}"></script>
+<script src=" {{url('frontend/libraries/gijgo/js/gijgo.min.js')}}"></script>
 <script>
   $('.datepicker').datepicker({
+    format: 'yyyy-mm-dd',
     uiLibrary: 'bootstrap4',
     icon: {
       rightIcon: '<img src=" {{url('frontend/img/icons/calendar.png')}} ">'
